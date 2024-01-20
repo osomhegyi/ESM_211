@@ -2,6 +2,7 @@
 Title: "Portfolio 1"
 Author: "Olivia Somhegyi"
 Date: January 20, 2024
+Topic: "Plotting Time Series"
 ---
 
 Data Source: GBIF.org (20 January 2024) GBIF Occurrence Download <https://doi.org/10.15468/dl.3tknym>
