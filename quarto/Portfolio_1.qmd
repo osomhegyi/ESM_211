@@ -1,0 +1,46 @@
+---
+Title: "Portfolio 1"
+Author: "Olivia Somhegyi"
+Date: January 20, 2024
+---
+
+Data Source: GBIF.org (20 January 2024) GBIF Occurrence Download <https://doi.org/10.15468/dl.3tknym>
+
+
+## Load Packages
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+library(dplyr)
+```
+
+
+## Import and tidy data
+```{r}
+# import data
+kea_raw <- read_csv(here('data', 'kea_gbif.csv'))
+
+# clean data
+kea <- kea_raw %>% 
+  clean_names() %>% #names to lower_case_snake
+  select('scientific_name', 'verbatim_scientific_name', 'year', 'basis_of_record') %>% # select these 4 columns
+  filter(basis_of_record == "HUMAN_OBSERVATION") %>% # filter for only human observation data
+  group_by(year) %>% # group data by 'year'
+  mutate(count = n()) # add new column called 'count'; counts the number of observations in each year
+```
+
+## plot data
+```{r}
+kea_plot<-ggplot(kea, aes(x=year, y=count)) +
+  geom_point(color='cyan4',size=2) +
+  xlab("Year") + 
+  ylab("Kea Count (N)") +
+  ggtitle("Kea (Nestor notabillis) Population in New Zealand (1995-2022)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=45, hjust=1))
+
+kea_plot
+```
+
+
