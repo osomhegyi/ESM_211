@@ -1,0 +1,45 @@
+---
+author: Olivia Somhegyi
+date: January 30, 2024
+Presenter: Delores and Jayden
+Topic: Glarma
+---
+
+## Glarma package
+Great for fitting models for observatio-diven count data
+Optimal for non normal data. Allows you to use data as is, so that you don't have to edit the data much
+Really technical and stats heavy - not many resources with application of this package
+Model Output: AIC, significance of all the parameters (of all the things you put into the model, which parameters matter?), whether the lag is significant
+Limitations: Cannot explicitly put in the population growth rates (I think, idk), but can use this as a piece of info in the matrix.
+Can account for critical event? Something that has a percieved major events.
+Rarely used for population data, but is more frequently being used for population data becuase weird data
+
+Within Glarma there are 3 different types of models
+1) Poisson
+2) Negative Binomial
+3) Binomial
+
+Types of data needed
+1) Observational Count Data
+2) Explanatory Variables
+Ex: Bison Data
+
+Forecast Package
+Both Forecast and Glarma are auto-regressive
+Predict future values based on past values
+## forecast isn't well-suited for long-term forecasts
+## In forecast, your parameters are a bit more subjective than in Glarma
+
+
+Portfolio Assignment:
+Comparing Time Lags for Bison Population Modeling
+Assingment in the box folder
+
+
+
+
+
+
+
+
+
