@@ -1,0 +1,29 @@
+---
+Name: Olivia
+Portfolio: 5
+Topic: Adehabitat - Home Range habitat notes
+Date: February 1, 2024
+---
+
+
+
+# Adehabitat
+- Great for home ranges
+- This package can be used for Connectivity & Fragmentation, Conservation Planning (Identifying priority areas), Disease Ecology, Informing Management Decisions
+
+# Model overview
+- Minimum convex polygons - polygons are calculated based on the area that the observed individuals have travelled in
+- Kernel Density Estimation: to predict use across space
+
+# What type of data is needed?
+- Telemetry data - collected via radio collars, satellite transmitting tags, VHF
+- To get this package to work, need to define a spatial points data frame. And then once you have that, you should be able to calculate the areas pretty easily.
+- multiple ways to define your kernals
+
+
+
+
+
+
+
+
