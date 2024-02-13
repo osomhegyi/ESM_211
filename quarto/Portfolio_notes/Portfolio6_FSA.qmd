@@ -1,0 +1,35 @@
+---
+Name: Olivia
+Portfolio: 5
+Topic: FSA - Fisheries Stock Assessment notes
+Date: February 6, 2024
+---
+
+
+What does it do? A variety of fish stock stuff. Incorporates many simple tasks
+- Fisheries managers want to assess the health of a fish population and its environmnet for management
+- Uses weight to length data to calculate habitat quality (i think)
+- Fish < 8cm can't be used in the calculation
+
+Catch curve overview
+- Linear Regression Basis
+- Data needed to put into catch curve: Data and Catch (need to be numeric)
+
+Depletion Model Overview
+- It estimates the total population size for a closed population
+- Many different methods --> Leslie Method
+- DeLury Method: Use this method when the fraction of the stock removed by unit of fishing effort is really small (< 2%)
+- K-Pass Method: Just need data on the number that are captured
+
+
+
+
+
+
+
+
+
+
+
+
+

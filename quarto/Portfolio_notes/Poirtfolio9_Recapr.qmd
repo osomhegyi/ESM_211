@@ -1,0 +1,20 @@
+---
+Name: Olivia
+Portfolio: 9
+Topic: Recapr - notes
+Date: February 13, 2024
+---
+
+
+Presented by Jerde
+
+What does this package do?
+- It is a two event mark-recapture experiment. Catch fish, mark them, then try to catch some of those fish again. Can use it all the time for different species. 2-event becuase with this, we assume a closed population. Three main estimators are Peterson, Chapman, and Bailey. Chapman is great for small sample sizes. If you get a lot of things marked, use Peterson.
+
+
+
+
+
+
+
+

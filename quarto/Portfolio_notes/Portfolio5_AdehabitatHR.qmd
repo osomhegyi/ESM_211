@@ -19,6 +19,8 @@ Date: February 1, 2024
 - Telemetry data - collected via radio collars, satellite transmitting tags, VHF
 - To get this package to work, need to define a spatial points data frame. And then once you have that, you should be able to calculate the areas pretty easily.
 - multiple ways to define your kernals
+- the convex polygon is the home range
+
 
 
 

@@ -1,0 +1,31 @@
+---
+Name: Olivia
+Portfolio: 8
+Topic: Survival - notes
+Date: February 8, 2024
+---
+
+Notes
+- Overall it assesses how much time is elapsing between each event
+- Assesses time-to-event duration
+- overall were looking at what is the influence of a variable
+- Survival Function: The probability of surviving an event of interest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
