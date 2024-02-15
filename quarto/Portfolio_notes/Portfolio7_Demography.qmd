@@ -1,0 +1,29 @@
+---
+Name: Olivia
+Portfolio: 7
+Topic: Demography - notes
+Date: February 8, 2024
+---
+
+# Package Notes (We're making our own functions and not using this package)
+- Centers around life tables
+- Life tables summarize birth and death rates of an organizsm at different states(ages) of their life
+- Only need two terms: survivorship and fecundity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
