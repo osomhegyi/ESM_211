@@ -1,10 +1,130 @@
 ---
 Name: Olivia
-Portfolio: 3
-Topic: Growth Rates
+Portfolio: 4
+Topic: Glarma
 Date: January 30, 2024
 ---
 
+Glarma class notes:
+## Glarma package
+- Great for fitting models for observatio-diven count data
+Optimal for non normal data. Allows you to use data as is, so that you don't have to edit the data much
+- Really technical and stats heavy - not many resources with application of this package
+- Model Output: AIC, significance of all the parameters (of all the things you put into the model, which parameters matter?), whether the lag is significant
+- Limitations: Cannot explicitly put in the population growth rates (I think, idk), but can use this as a piece of info in the matrix.
+- Can account for critical event? Something that has a percieved major events.
+- Rarely used for population data, but is more frequently being used for population data becuase weird data
+
+Within Glarma there are 3 different types of models
+1) Poisson
+2) Negative Binomial
+3) Binomial
+
+Types of data needed
+1) Observational Count Data
+2) Explanatory Variables
+Ex: Bison Data
+
+Forecast Package
+Both Forecast and Glarma are auto-regressive
+Predict future values based on past values
+## forecast isn't well-suited for long-term forecasts
+## In forecast, your parameters are a bit more subjective than in Glarma
+
+
+
+
+Portfolio Assignment:
+
+#Comparing Time Lags for Bison Population Modeling
+```{r}
+# load packages
+library(glarma)
+library(here)
+library(dplyr)
+library(tidyverse)
+
+#load in the bison data
+bison <- read_csv(here("data", "bison.csv"))
+  
+#add an intercept 
+bison$intercept<-as.integer(1)
+
+#Identify variables
+y <- bison$bison # y value is bison counts
+x0 <- bison %>% select(intercept) 
+x0 <- as.matrix(x0) # turns x0 into a matrix 
+
+#Create three glarma models that have a time lag of 1, 2, and 7
+bison_null_lag1 <- glarma(y, x0, phiLags = c(1), type = "Poi", method = "FS",
+                              residuals = "Pearson", maxit = 100, grad = 1e-6)
+
+bison_null_lag2 <- glarma(y, x0, phiLags = c(2), type = "Poi", method = "FS",
+                              residuals = "Pearson", maxit = 100, grad = 1e-6)
+
+bison_null_lag7 <- glarma(y, x0, phiLags = c(7), type = "Poi", method = "FS",
+                              residuals = "Pearson", maxit = 100, grad = 1e-6)
+
+# 1. Visually compare the plots. Which looks like the best fit?
+#if you have an error in plot.window for the last plot, it's okay to ignore 
+plot.glarma(bison_null_lag1) # pretty good fit, some variability between time segments, but generally trending well with the data
+plot.glarma(bison_null_lag2) # pretty good fit, some variability between time segments, but best fit overall
+plot.glarma(bison_null_lag7) # good fit from time 15 - 20, otherwise not a very good fit 
+
+## Answer: lag of 2 appears to visually be the best fit, although lag 1 have a similar trend with the data. A lot of visual similarities between lag 1 and 2, both generally follow the trend and have variability from data. Lag 7 is not a very good fit.
+
+
+# 2. Compare the AIC for the models. Which is actually the best fit? 
+summary(bison_null_lag1) # AIC: 7200.342
+summary(bison_null_lag2) # AIC: 6684.275 
+summary(bison_null_lag7) # AIC: 14214.01 
+
+## Answer: lag 2 is the best fitting model of the three options, becuase it has the lowest AIC.
+
+
+# 3. Create a model with major events factored in and compare it with the best fit model identified in question 2. Is the model with major events a better fit? 
+
+#Add intercept and major events
+bison$major_events <- as.integer(0)
+
+bison$major_events[bison$year==1995] <- 1 # reintroduction of wolves to yellowstone NP
+
+bison$major_events[bison$year==1988] <- 1 # 1988 Yellowstone Fire
+
+#Identify variables
+x1 <- bison %>% select(intercept, major_events) # x1 explanatory variables, presence of major events
+x1 <- as.matrix(x1) #turns x1 into a matrix
+
+#Create the model with major events. Make the lag the same as the best fit model from question 2 
+bison_exp_lag <- glarma(y, x1, phiLags = c(1), type = "Poi", method = "FS", 
+                             residuals = "Pearson", maxit = 100, grad = 1e-6)
+#summary 
+summary(bison_exp_lag) # AIC: 5235.738 
+
+## Answer: AIC is 5235.738; this model, with major events included in the model, is a better fit than the three previous models that were generated. This model has the lowest AIC of all the models. Meaning that accounting for major environmental events within these specific model, leads to a better modek fit than not.
+
+
+#extra if you're feeling spry 
+#Plots the model (black) and the bison count data (gray)
+
+bison_mod <- bison 
+
+bison_mod$est <- bison_exp_lag$fitted.values #adds fitted values
+
+bison_plot<-ggplot(bison_mod, aes(x=year)) + 
+  geom_point(col="gray",aes(y=bison),size=3) + 
+  geom_point(col="black",aes(y=est),size=3) +
+  geom_line(col="black",aes(y=est)) +
+  labs(x="Year", y="Bison Population") +
+  ylim(0,4100) + xlim(1970,1997)+
+  theme_bw()
+
+#Adds two red horizontal lines for the occurrence of fire and reintroduction of wolves
+bison_plot <-bison_plot + 
+  annotate("rect", xmin = 1988, xmax =1988.1, ymin = 0, ymax = 4100, alpha = .75,fill = "red") + 
+  annotate("rect", xmin = 1995, xmax =1995.1, ymin = 0, ymax = 4100, alpha = .75,fill = "red")
+
+```
 
 
 
