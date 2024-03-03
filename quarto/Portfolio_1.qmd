@@ -33,15 +33,15 @@ kea <- kea_raw %>%
 
 ## plot data
 ```{r}
-kea_plot<-ggplot(kea, aes(x=year, y=count)) +
+kea_plot<-ggplot(kea, aes(x=year, y=count)) + # x = year, y = count
   geom_point(color='cyan4',size=2) +
   xlab("Year") + 
   ylab("Kea Count (N)") +
   ggtitle("Kea (Nestor notabillis) Population in New Zealand (1995-2022)") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle=45, hjust=1))
+  theme(axis.text.x = element_text(angle=45, hjust=1)) # adjust x axis labels
 
-kea_plot
+kea_plot # kea populations are increasing from 1995!
 ```
 
 

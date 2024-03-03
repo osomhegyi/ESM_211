@@ -11,7 +11,10 @@ Topic: "Global Population Data"
 # Christopher L Jerde
 # Notes:Data from https://ourworldindata.org/population-growth#introduction
 ########################################
+```
 
+
+```{r}
 #Clear the R environment
 rm(list = ls())
 
@@ -27,10 +30,11 @@ w_pop_data<-read_csv(here("data","population-and-demography.csv"))
 w_pop_data<- w_pop_data |> clean_names() |>
   filter(country_name=="Namibia") |> 
   select(year, population) |> drop_na()
+```
 
-#Always plot your data
-####################################
 
+# Always plot your data
+```{r}
 #On the observed scale
 human_ts<-ggplot(w_pop_data, aes(x=year, y=population))+
   geom_point()+
@@ -51,19 +55,21 @@ human_ts_log<-ggplot(w_pop_data, aes(x=year, y=population))+
   ggtitle("Human Population in Namibia (1950-2022)")+
   theme_bw()
 human_ts_log
+```
 
 
-#use lm() to find estimates
-##########################################
+# use lm() to find estimates
+```{r}
 human.lm_fit<- lm(log(population)~year,data=w_pop_data)
-summary(human.lm_fit) #how well does it fit? 
+summary(human.lm_fit) #p-value < 2.2e-16; adjusted R-squared: 0.9889; results indicate model is a good fit.
 
-NO<-exp(human.lm_fit$coefficients[1]) # calculate Nknot parameter
-r<-human.lm_fit$coefficients[2] # calculate the growth rate coefficient
+NO<-exp(human.lm_fit$coefficients[1]) # calculate Nknot parameter (3.7e-16)
+r<-human.lm_fit$coefficients[2] # calculate the growth rate coefficient (0.0249)
+```
 
-#Plot the data and the model
-###########################################
 
+# Plot the data and the model
+```{r}
 # On the transformed scale
 human_ts_model_trans<-ggplot(w_pop_data, aes(x=year, y=population))+
   geom_point()+
@@ -74,14 +80,14 @@ human_ts_model_trans<-ggplot(w_pop_data, aes(x=year, y=population))+
   xlim(1949, 2023)+
   ggtitle("Human Population in Namibia (1950-2022)")+
   theme_bw()
-human_ts_model_trans
+human_ts_model_trans # pretty good model fit, but the data is not quite linear
 
 
 # On the observed scale
 
 # Predicted population values from the model
 predicted_df <- data.frame(pop_pred = predict(human.lm_fit, w_pop_data), year=w_pop_data$year)
-predicted_df<- predicted_df |> mutate(N_est=exp(pop_pred)) #transformed back to observed popualtion estimates
+predicted_df<- predicted_df |> mutate(N_est=exp(pop_pred)) #transformed back to observed population estimates
 
 
 human_ts_model<-ggplot(w_pop_data, aes(x=year, y=population))+
@@ -92,6 +98,6 @@ human_ts_model<-ggplot(w_pop_data, aes(x=year, y=population))+
   xlim(1949, 2023)+
   ggtitle("Human Population in Namibia (1950-2022)")+
   theme_bw()
-human_ts_model
+human_ts_model # good model fit until about year 1988, then the data deviates a bit from the model fit
 ```
 

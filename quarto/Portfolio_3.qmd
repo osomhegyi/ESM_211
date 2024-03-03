@@ -5,6 +5,52 @@ Topic: Growth Rates
 Date: January 30, 2024
 ---
 
+# Growth Rates notes from class:
+
+## lecture notes
+growth rates over time
+bacterial growth
+value is population size
+
+## you need to find r, K , and other parameters. Should always start at time = 0.
+## function: 'fit_easylinear' finds the max growth rate on the exponential segment of the curve
+
+Easy linear
+## the whole plot does not need to be exponential, can be only a segment of the exponential curve and will take the moment in time with the highest growth rate
+## coefficients being output: 'mumax' is r. r is the growth rate
+
+Fit splines (non-parametric model)
+## fit_spline - splines fit models piecewise to a dataset
+## we hate splines
+## this uses splines to find r
+## the spline is essentially centered on a single datapoint
+
+
+Fitting parametric nonlinear models
+## logistic grow th rate model
+p = needs a yknot (starting value), a mumax (r), and a K
+TIME = time
+y = population size
+
+## To calculate p, it doesn't know where to start, so it needs some values to know where to start (kinda like nls)
+
+Can apply this to multiple datasets
+## spar argument is how smooth your splines will be
+for logistic growth: use the 'all_growthmodels'
+## plot dose reponse curves
+
+Limitation
+## Does not provide any info about model-best fit, so how would you choose which model?
+## how to know which r value to start with? Hard to know, but it seems like in this particular case, a wide range of r will be okay so long as there aren't any local minmum or maximum.
+
+## Assignment:
+Find r and K for the bison dataset using at least three different models (Exponential, logistic, spline)
+Try functions fit_easylinear, fit_growthmodels, and fit_Splines
+Do the different models agree on the parameter values?
+
+
+## Portfolio Assignment:
+
 # load packages
 ```{r}
 library(growthrates)
@@ -42,8 +88,9 @@ coef(fit_bison_linear)
 
 # plot results
 plot(fit_bison_linear) # the plot will note which points have highest growth rate using the data
+## plot fits data from 1970-1982 best.
 
-# can also plot the log of results
+# can also plot the log of results and compare between the two
 ```
 
 
@@ -58,6 +105,7 @@ coef(fit_bison_spline)
 
 # plot the fitted spline
 plot(fit_bison_spline)
+## adds a spline connects each of the data points, first point at time 1970 is red
 ```
 
 
