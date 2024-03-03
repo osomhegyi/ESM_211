@@ -1,0 +1,94 @@
+---
+Name: Olivia
+Portfolio: 7
+Topic: Demography - notes
+Date: February 8, 2024
+---
+
+# Package Notes
+- We're making our own functions and not using this package
+- Centers around life tables
+- Life tables summarize birth and death rates of an organizsm at different states(ages) of their life
+- Only need two terms: survivorship and fecundity
+
+
+
+## Portfolio Assignment
+
+Run the bison example
+2. Interpret the equations used in the life table for yourself (what is the code doing).
+3. Plot the life expectancy as a function age.
+Q: Why is age zero life expectancy less than age 1?
+Q: Why are R0, G, and r the same for each age?
+
+```{r}
+#Clear the R environment
+rm(list = ls())
+
+
+#libraries
+library(here)
+library(tidyverse)
+
+
+# Sheep example
+sheep_data<-read.csv(here("data","bh_sheep.csv"))
+sheep_lx_table<-sheep_data |> mutate(lx=count/count[1]) |> select(age,lx)
+
+#Creat new columns of variables for calculation
+life_table_sheep <- sheep_lx_table %>%
+  mutate("Lx"=(lx+lead(lx))/2,
+         "Lx"=replace(Lx, length(lx), 0),
+         "ex"=rev(cumsum(rev(Lx)))/lx
+  )
+
+life_table_sheep #output for sheep
+
+
+###########################
+# From bison research
+bison_data<-read.csv(here("data","bison_lh.csv"))
+
+#Creat new columns of variables for calculation
+life_table_bison <- bison_data %>% # bison dataframe: has 3 columns: age, lx, and mx
+  mutate("lx*mx"=lx*mx, # mutate a new column; value is lx x mx
+         "x*lx*mx"=age*lx*mx, # mutate a new column; value is age x mx x lx
+         "Lx"=(lx+lead(lx))/2, # Average survivorship at age class x; mutate a new column; (lx + lead of lx) divided by 2. lead is the next row (observation)
+         "Lx"=replace(Lx, length(lx), 0), # Average survivorship at age class x; make the length of Lx the same as the length of lx, add zeros if needed
+         "ex"=rev(cumsum(rev(Lx)))/lx, # Life expectancy; mutate a new column; (reverse value, take cumulative sum, reverse the value of Lx) divide by lx
+         "R0"=sum(lx*mx), # Net reproductive rate; mutate a new column; compute the sum of lx x mx
+         "G"=sum(age*lx*mx)/R0, # Generation Time; mutate a new column; compute the sum of (age x lx x mx) divided by R0
+         "approx.r"=log(R0)/G # True rate of increase; mutate a new column; take the log of R0 and divide by G
+  )
+
+life_table_bison #check your work
+```
+
+```{r}
+# visualize: plot the life expectancy of bison as a function of age
+bison_plot<-ggplot(life_table_bison, aes(x=age, y=ex)) + # ex is life expectancy
+  geom_line() +
+  geom_point() +
+  theme_minimal()
+
+bison_plot # as age nears 30 years, the life expectancy several diminishes. Decreasing trend across.
+```
+
+
+Q: Why is age zero life expectancy less than age 1?
+A: Because at this time, they are not yet at reproductive age, so there is a lag in the population.
+
+
+Q: Why are R0, G, and r the same for each age?
+A: R0 = Net reproductive rate; G = Generation Time; r = true rate of increase. They are the same becuase...
+
+
+
+
+
+
+
+
+
+
+
