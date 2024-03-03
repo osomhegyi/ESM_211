@@ -1,0 +1,95 @@
+---
+Name: Olivia
+Portfolio: 9
+Topic: Recapr
+Date: February 13, 2024
+---
+
+
+Presented by Jerde
+
+What does this package do?
+- It is a two event mark-recapture experiment. Catch fish, mark them, then try to catch some of those fish again.
+- Can use it all the time for different species. 2-event because with this, we assume a closed population.
+- Three main estimators are Peterson, Chapman, and Bailey.
+- Chapman is great for small sample sizes. If you get a lot of things marked, use Peterson.
+- How do we mark individuals, so that we can easily find if they were marked later?
+- m&m example in class
+
+
+
+
+Portfolio Assignment:
+
+a. Run the Petersen Estimator for the Silver Carp parameters.
+b. What is the difference between the Petersen and Chapman estimates and the
+confidence intervals?
+c. How many M&Ms are in this bag?
+
+
+```{r}
+library(here)
+library(tidyverse)
+library(recapr)
+
+
+# 'recapr' package https://cran.r-project.org/web/packages/recapr/recapr.pdf
+
+n1<-75 # number of individuals marked in the first sampling
+n2<-100 # number of individuals captured in the second sampling effort
+m2<- 4 # number of individuals in the second sampling effort that were marked.
+  
+# Runs the model, get the estimate of N and calculates a confidence interval
+NPetersen(n1, n2, m2) # estimates the population size
+## population size estimate: 1875
+
+ciPetersen(n1,n2,m2)  # 95% CIs using normal approximation ($ciNorm) and bootstrapping ($ciBoot)
+## confidence interval: 937.5, 7500.0
+
+# Sample size recommendation
+n2RR(N=8000, n1=75)
+plotn2sim(N=8000, n1=75)
+```
+
+
+# Silver Carp Study; Peterson and Chapman Estimates
+```{r}
+#Sass et al. (2010) Silver carp study
+n1_sc <- 4540
+n2_sc <- 2239 #approximated from the paper (not reported)
+m2_sc <- 30
+
+# Chapman estimate
+NChapman(n1_sc, n2_sc, m2_sc)
+## population size estimate: 328122.9
+
+ciChapman(n1_sc, n2_sc, m2_sc)
+## confidence interval: 242185.7, 484372.3
+
+# Peterson estimate
+# Runs the model, get the estimate of N and calculates a confidence interval
+NPetersen(n1_sc, n2_sc, m2_sc) # estimates the population size
+## population size estimate: 338835.3
+
+ciPetersen(n1_sc,n2_sc,m2_sc)  # 95% CIs using normal approximation ($ciNorm) and bootstrapping ($ciBoot)
+## confidence interval: 247928.3, 508253.0
+
+
+
+# Sample size recommendation
+n2RR(N=328192, n1=4540)
+plotn2sim(N=328192, n1=4540)
+```
+
+b. What is the difference between the Petersen and Chapman estimates and the
+confidence intervals?
+
+Answer: The Chapman population estimate is 328,123, while the Peterson population estimate is 338,835. The Peterson estimate is about 10,000 fish greater. The Chapman confidence interval is 242185.7, 484372.3, while the Peterson confidence interval is 247928.3, 508253.0. Both of the population estimate fall within the confidence interval, but the confidence interval for the Peterson method is slightly larger and has greater values.
+
+
+c. How many M&Ms are in this bag?
+
+
+
+
+
