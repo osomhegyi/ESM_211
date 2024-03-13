@@ -62,7 +62,9 @@ library(janitor)
 
 # read in the data
 ```{r}
-bison <- read_csv(here("data", "bison.csv"))
+bison <- read_csv(here("data", "bison.csv")) %>% 
+  mutate(time = year - year[1]) # time has to start from 0
+
 ```
 
 # visualize data
@@ -80,7 +82,7 @@ bison_gg
 # applying fit_easylinear
 ```{r}
 # use function 'fit_easylinear' 
-fit_bison_linear <- fit_easylinear(bison$year, bison$bison)
+fit_bison_linear <- fit_easylinear(bison$time, bison$bison)
 
 # mumax is r
 coef(fit_bison_linear)
@@ -88,7 +90,7 @@ coef(fit_bison_linear)
 
 # plot results
 plot(fit_bison_linear) # the plot will note which points have highest growth rate using the data
-## plot fits data from 1970-1982 best.
+## plot fits data from 1970-1982 best. - Overall, not the best fit for the data across all years.
 
 # can also plot the log of results and compare between the two
 ```
@@ -97,7 +99,7 @@ plot(fit_bison_linear) # the plot will note which points have highest growth rat
 # fit splines
 ```{r}
 # use the funtion 'fit_spline'
-fit_bison_spline <- fit_spline(bison$year, bison$bison)
+fit_bison_spline <- fit_spline(bison$time, bison$bison)
 
 # mumax is r
 coef(fit_bison_spline)
@@ -105,13 +107,14 @@ coef(fit_bison_spline)
 
 # plot the fitted spline
 plot(fit_bison_spline)
-## adds a spline connects each of the data points, first point at time 1970 is red
+## adds a spline connects each of the data points, first point at time 1970 is red; not a good fit.
 ```
 
 
 # fit growth models
 ```{r}
-p <- c(y0 = 0.01, mumax = 0.15, K = 0.1)
+# Best guess to initialize
+p <- c(y0 = 200, mumax = 0.2, K = 4000)
 
 fit_bison_growth <- fit_growthmodel(FUN = grow_logistic,
 p = p,
@@ -119,14 +122,16 @@ bison$year,
 bison$bison)
 
 coef(fit_bison_growth)
-# K = 2267.286
+# K = 2267.286; Appears to be an underestimation of the model, since the data reaches up to 4000.
+# r = 0.2
+
 
 # visualize
 plot(fit_bison_growth) # not the best fit
 ```
 
 
-## each model type gets quite different parameter values, becuase it is fitting the data differently. To get a better idea of which function is best suited for the data, always perform an initial visual inspection to get an idea if growth is linear, exponential, etc.
+## each model type gets quite different parameter values, becuase it is fitting the data differently. To get a better idea of which function is best suited for the data, always perform an initial visual inspection to get an idea if growth is linear, exponential, etc. Want to have a good understanding of your data before selecting which model is
 
 
 
