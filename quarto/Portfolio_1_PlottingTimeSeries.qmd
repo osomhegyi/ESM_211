@@ -5,7 +5,13 @@ Date: January 20, 2024
 Topic: "Plotting Time Series"
 ---
 
+Plotting time series of population data
+- A great way to visualize data
+- Identify initial trends
+- Don't need an R package to do so
+
 Data Source: GBIF.org (20 January 2024) GBIF Occurrence Download <https://doi.org/10.15468/dl.3tknym>
+- Data was cleaned to represent "research grade" data
 
 
 ## Load Packages
@@ -19,7 +25,7 @@ library(dplyr)
 
 ## Import and tidy data
 ```{r}
-# import data
+# import data; Kea data from GBIF
 kea_raw <- read_csv(here('data', 'kea_gbif.csv'))
 
 # clean data
@@ -41,7 +47,7 @@ kea_plot<-ggplot(kea, aes(x=year, y=count)) + # x = year, y = count
   theme_minimal() +
   theme(axis.text.x = element_text(angle=45, hjust=1)) # adjust x axis labels
 
-kea_plot # kea populations are increasing from 1995!
+kea_plot # kea populations are increasing from 1995! Data collection may have also been limited in the earlier years on the graph as well.
 ```
 
 
