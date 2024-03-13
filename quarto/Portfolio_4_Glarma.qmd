@@ -7,7 +7,7 @@ Date: January 30, 2024
 
 Glarma class notes:
 ## Glarma package
-- Great for fitting models for observatio-diven count data
+- Great for fitting models for observation-diven count data
 Optimal for non normal data. Allows you to use data as is, so that you don't have to edit the data much
 - Really technical and stats heavy - not many resources with application of this package
 - Model Output: AIC, significance of all the parameters (of all the things you put into the model, which parameters matter?), whether the lag is significant
@@ -75,9 +75,9 @@ plot.glarma(bison_null_lag7) # good fit from time 15 - 20, otherwise not a very 
 
 
 # 2. Compare the AIC for the models. Which is actually the best fit? 
-summary(bison_null_lag1) # AIC: 7200.342
-summary(bison_null_lag2) # AIC: 6684.275 
-summary(bison_null_lag7) # AIC: 14214.01 
+summary(bison_null_lag1) # AIC: 7200.342; AIC difference > 7, not a good fit
+summary(bison_null_lag2) # AIC: 6684.275; best fit
+summary(bison_null_lag7) # AIC: 14214.01; worst fit
 
 ## Answer: lag 2 is the best fitting model of the three options, becuase it has the lowest AIC.
 
@@ -99,9 +99,9 @@ x1 <- as.matrix(x1) #turns x1 into a matrix
 bison_exp_lag <- glarma(y, x1, phiLags = c(1), type = "Poi", method = "FS", 
                              residuals = "Pearson", maxit = 100, grad = 1e-6)
 #summary 
-summary(bison_exp_lag) # AIC: 5235.738 
+summary(bison_exp_lag) # AIC: 5235.738; lowest of all the models so far
 
-## Answer: AIC is 5235.738; this model, with major events included in the model, is a better fit than the three previous models that were generated. This model has the lowest AIC of all the models. Meaning that accounting for major environmental events within these specific model, leads to a better modek fit than not.
+## Answer: AIC is 5235.738; this model, with major events included in the model, is a better fit than the three previous models that were generated. This model has the lowest AIC of all the models. Meaning that accounting for major environmental events within these specific model, leads to a better model fit than not. When determining time lags, consider gestation rate, sexual maturity, and breeding frequency - these directly impact the lag and should be a major consideration when determining the lag time.
 
 
 #extra if you're feeling spry 
@@ -128,7 +128,7 @@ bison_plot <-bison_plot +
 
 
 
-
+## Overall the package is great for modeling populations, while factoring in environmental events such as climate change, major weather events, natural disasters, etc.
 
 
 
