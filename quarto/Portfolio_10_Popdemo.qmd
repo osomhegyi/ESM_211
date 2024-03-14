@@ -5,6 +5,9 @@ Topic: Popdemo
 Date: February 15, 2024
 ---
 
+# Portfolio 10 - Popdemo
+
+
 Popdemo - Presented by Steven
 - Can project populations in two ways: deterministically and stochastically
 - deterministic omits stochasity, super simple and not the most useful, so probably use stochastic projections
@@ -33,8 +36,8 @@ Pbear_vector <- c(0.106, 0.068, 0.106, 0.461, 0.151, 0.108) # from paper
 # and conversely # makes bad ice years more likely if the previous year was
 # bad (use 80% likelihood).
 
-p4 <- 0.2 # probability next year is a bad year given that this year was a good year
-q4 <- 0.8 # probability next year is a bad year given that this year was a bad year
+p4 <- 0.2 # probability next year is a bad year given that this year was a good year - 20%
+q4 <- 0.8 # probability next year is a bad year given that this year was a bad year - 80%
 Pbear_task1_matrix <- matrix(c(rep(c((1-p4)/3, (1-p4)/3, (1-p4)/3, p4/2, p4/2), 3),
                       rep(c((1-q4)/3, (1-q4)/3, (1-q4)/3, q4/2, q4/2), 2)), 5, 5)
 
@@ -43,8 +46,10 @@ plot(Pbear_task1_projection)
 ```
 
 ## Answer
-a) 20% probability: 
-b) 80% probability: 
+a) 20% probability: This defines that there is a 20% chance that next year is a bad year, given that this year was a good sea ice year.
+b) 80% probability: This defines that there is an 80% chance that next year is a bad year, given that this year was a good sea ice year. 
+
+When plotting results we see an overall downward trend, meaning that with these given constraints we see a decline in population size/density over time. The is a steep downward trend from ~ time 4 to time 15, where it then flattens out.
 
 
 ```{r}
@@ -60,13 +65,15 @@ Pbear_task2_matrix <- matrix(c(rep(c((1-p5)/3, (1-p5)/3, (1-p5)/3, p5/2, p5/2), 
                       rep(c((1-q5)/3, (1-q5)/3, (1-q5)/3, q5/2, q5/2), 2)), 5, 5)
 
 Pbear_task2_projection <- project(Pbear, Pbear_vector, Aseq = Pbear_task2_matrix, time = 50)
-plot(Pbear_task1_projection)
+plot(Pbear_task2_projection)
 ```
 
 ## Answer
-a) 50% probability:
-b) 80% probability:
+a) 50% probability: There is a 50% probability that next year is a bad year given that this year was a good year.
+b) 80% probability: There is an 80% probability that next year is a bad year given that this year was a good year.
 
+
+When plotting the results, we see an overall steep downward trend in population size/density over time. There is an even steeper initiial downward trend in this plot that in the previous one from time 0 to 15 because flattening out. Overall, not a good outlook for polarbears.
 
 
 
