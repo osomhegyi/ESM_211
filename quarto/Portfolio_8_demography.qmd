@@ -8,7 +8,7 @@ Date: February 8, 2024
 # Package Notes
 - We're making our own functions and not using this package
 - Centers around life tables
-- Life tables summarize birth and death rates of an organizsm at different states(ages) of their life
+- Life tables summarize birth and death rates of an organism at different states(ages) of their life
 - Only need two terms: survivorship and fecundity
 
 
@@ -31,18 +31,18 @@ library(here)
 library(tidyverse)
 
 
-# Sheep example
-sheep_data<-read.csv(here("data","bh_sheep.csv"))
-sheep_lx_table<-sheep_data |> mutate(lx=count/count[1]) |> select(age,lx)
-
-#Creat new columns of variables for calculation
-life_table_sheep <- sheep_lx_table %>%
-  mutate("Lx"=(lx+lead(lx))/2,
-         "Lx"=replace(Lx, length(lx), 0),
-         "ex"=rev(cumsum(rev(Lx)))/lx
-  )
-
-life_table_sheep #output for sheep
+# # Sheep example
+# sheep_data<-read.csv(here("data","bh_sheep.csv"))
+# sheep_lx_table<-sheep_data |> mutate(lx=count/count[1]) |> select(age,lx)
+# 
+# #Creat new columns of variables for calculation
+# life_table_sheep <- sheep_lx_table %>%
+#   mutate("Lx"=(lx+lead(lx))/2,
+#          "Lx"=replace(Lx, length(lx), 0),
+#          "ex"=rev(cumsum(rev(Lx)))/lx
+#   )
+# 
+# life_table_sheep #output for sheep
 
 
 ###########################
@@ -76,11 +76,13 @@ bison_plot # as age nears 30 years, the life expectancy several diminishes. Decr
 
 
 Q: Why is age zero life expectancy less than age 1?
+
 A: Because at this time, they are not yet at reproductive age, so there is a lag in the population.
 
 
 Q: Why are R0, G, and r the same for each age?
-A: R0 = Net reproductive rate; G = Generation Time; r = true rate of increase. They are the same becuase...
+
+A: R0 = Net reproductive rate; G = Generation Time; r = true rate of increase. They are the same because these values stay constant throughout the population, regardless of time/age. Generation time is the same, because the time between generations does not change. Meaning that the generation time within a population is constant. In addition, net reproductive rate and the true rate of increase is constant because it does not change with time or population size.
 
 
 

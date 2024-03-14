@@ -43,27 +43,30 @@ Creating kernels involves the same initial steps as creating MCPs. Like before, 
 #read in the elk data!
 ```{r}
 ### Let's start as we did before: read in the csv and filter to 6 elk from the NER
-
+# import data
 elk <- read_csv(here("data", "elk_collar.csv"))
 
+# make 'id' a character
 elk <- elk %>% 
   mutate_at("id", as.character)
 
+# filter out data to run the model on fewer individuals
 elk_ner <- elk %>% 
-  filter(feedground == "National_Elk_Refuge") %>%  
-  filter(id %in% c("631", "632", "633", "634", "635", "636")) 
+  filter(feedground == "National_Elk_Refuge") %>%  # filter for specific feedground
+  filter(id %in% c("631", "632", "633", "634", "635", "636")) # unique id's
 ```
 
 #now lets make our dataframe into a spatial dataframe
 ```{r}
 ### Same process creating your SpatialPointsDataFrame
 
+# remove NA's
 elk_ner <- elk_ner[!is.na(elk_ner$x) & !is.na(elk_ner$y),]
-
+# select for only the three columns that are needed to further tidy the data
 elk.sp <- elk_ner[, c("id", "x", "y")] 
-
+# make the data a "spatial" dataframe using x, y coordinates
 coordinates(elk.sp) <- c("x", "y")
-
+# define CRS - be sure to align the crs with all data that you are working with
 proj4string(elk.sp) <- CRS("+proj=utm +zone=12 +datum=WGS84 +units=m +no_defs")
 ```
 
