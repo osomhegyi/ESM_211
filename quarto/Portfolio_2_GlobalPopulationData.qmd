@@ -5,6 +5,8 @@ Date: January 16, 2024
 Topic: "Global Population Data"
 ---
 
+# Portfolio 2 - Growth Population Data
+
 ## Growth curver package in R using world data
 
 ```{r}
@@ -28,13 +30,13 @@ library(tidyverse) #makes R work nicely
 #get the data
 w_pop_data<-read_csv(here("data","population-and-demography.csv"))
 
+w_pop_data_philippines<- w_pop_data |> clean_names() |>
+  filter(country_name=="Philippines") |> # filter for Phillipines
+  select(year, population) |> drop_na()
+
 #clean the data for only the global human population
 w_pop_data<- w_pop_data |> clean_names() |>
   filter(country_name=="Namibia") |> # filter for Namibia
-  select(year, population) |> drop_na()
-
-w_pop_data_philippines<- w_pop_data |> clean_names() |>
-  filter(country_name=="Philippines") |> # filter for Namibia
   select(year, population) |> drop_na()
 ```
 
@@ -50,8 +52,10 @@ human_ts<-ggplot(w_pop_data, aes(x=year, y=population))+
   ggtitle("Human Population in Namibia (1950-2022)")+
   theme_bw()
 human_ts
-# increasing - largely linear, with a few aspects that are exponential
+```
+Increasing - largely linear, with a few aspects that are exponential
 
+```{r}
 #On the observed scale - Philippines
 human_ts_philippines<-ggplot(w_pop_data_philippines, aes(x=year, y=population))+
   geom_point()+
@@ -61,8 +65,10 @@ human_ts_philippines<-ggplot(w_pop_data_philippines, aes(x=year, y=population))+
   ggtitle("Human Population in Philippines (1950-2022)")+
   theme_bw()
 human_ts_philippines
-#The Philippines have logistic growth
+```
+The Philippines have logistic growth
 
+```{r}
 #on the transformed log scale - Namibia
 human_ts_log<-ggplot(w_pop_data, aes(x=year, y=population))+
   geom_point()+
@@ -73,8 +79,8 @@ human_ts_log<-ggplot(w_pop_data, aes(x=year, y=population))+
   ggtitle("Human Population in Namibia (1950-2022)")+
   theme_bw()
 human_ts_log
-# increasing - largely linear, the slope decreases at the end of the time series indicating a drop off/slowing of population growth
 ```
+Increasing - largely linear, the slope decreases at the end of the time series indicating a drop off/slowing of population growth
 
 
 # use lm() to find estimates
@@ -99,9 +105,13 @@ human_ts_model_trans<-ggplot(w_pop_data, aes(x=year, y=population))+
   xlim(1949, 2023)+
   ggtitle("Human Population in Namibia (1950-2022)")+
   theme_bw()
-human_ts_model_trans # pretty good model fit, but the data is not quite linear. The model over estimate and under estimate often, but provides a general idea of the data trend even if it is not the best fit.
+human_ts_model_trans
+```
+Pretty good model fit, but the data is not quite linear. The model over estimate and under estimate often, but provides a general idea of the data trend even if it is not the best fit.
 
 
+
+```{r}
 # On the observed scale
 
 # Predicted population values from the model
@@ -117,6 +127,7 @@ human_ts_model<-ggplot(w_pop_data, aes(x=year, y=population))+
   xlim(1949, 2023)+
   ggtitle("Human Population in Namibia (1950-2022)")+
   theme_bw()
-human_ts_model # good model fit until about year 1988, then the data deviates a bit from the model fit. Recent years (~2008-2022) aren't well fit for this model, but the first several years are very well fit.
+human_ts_model
 ```
+Good model fit until about year 1988, then the data deviates a bit from the model fit. Recent years (~2008-2022) aren't well fit for this model, but the first several years are very well fit.
 
