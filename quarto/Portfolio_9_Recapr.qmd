@@ -4,7 +4,7 @@ Portfolio: 9
 Topic: Recapr
 Date: February 13, 2024
 ---
-
+# Portfolio 9 - Recapr
 
 Presented by Jerde
 
@@ -89,7 +89,37 @@ Answer: The Chapman population estimate is 328,123, while the Peterson populatio
 
 c. How many M&Ms are in this bag?
 
+Answer: The model estimate from the second capture was 694 m&m's, which is closer to the true value at 1171 than the estimate of the first run. While the estimate was below the true value, the true value is within the confidence interval, which is great! Between the two captures, the second capture was more accurate and has a smaller confidence interval.
 
+```{r}
+# m&m's
+
+# first capture
+n1_mm <- 75
+n2_mm <- 59
+m2_mm <- 7
+
+# peterson esitmate
+NPetersen(n1_mm, n2_mm, m2_mm) # output: 632.1429
+# Peterson confidence interval
+ciPetersen(n1_mm,n2_mm,m2_mm) # output: 368.75, 1475.00
+
+# second capture:
+n3_mm <- 176 #approximated from the paper (not reported)
+m3_mm <- 19
+
+# Peterson estimate
+NPetersen(n1_mm, n3_mm, m3_mm) # output: 694.7368
+# Peterson confidence interval
+ciPetersen(n1_mm,n3_mm,m3_mm) # output: 488.89, 1200
+
+# total m&m's in the bag: 1171
+
+
+# Sample size recommendation
+n2RR(N=694, n1=75)
+plotn2sim(N=694, n1=75)
+```
 
 
 
