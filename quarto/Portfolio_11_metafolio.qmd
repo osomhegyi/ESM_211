@@ -5,6 +5,8 @@ Topic: Metafolio
 Date: February 2024
 ---
 
+# Portfolio 11 - Metafolio
+
 Metafolio Notes:
 - metapopulation analysis - great for salmon populations
 - Uses a ricker model, which can be widely used by different organisms, but has its limitations
@@ -78,7 +80,7 @@ plot_cons_plans(arma_sp$plans_mv,
 
 Q2 Answer: This shifts the output left and up on the graph, meaning that it reduces the variance and increases the returns. This is more optimal because a portfolio manager would be increasing abundance more with that conservation strategy, while accepting less risk. Risk in this situation is bad. The efficiency frontier does not shift very much, which makes sense because the overall portfolio points do not change much. The portfolio that is to the left is more optimal because it accepts less risk.
 
-```{r}
+```{r, include=FALSE}
 ##.......................Part 3 - Optimizing metapopulation portfolios..................................
 
 ## Woohoo it's time to optimize those portfolios!!
@@ -106,7 +108,7 @@ plot_rickers(base1, pal = rep("black", 10)) ## Spawners on x axis and Returns on
 
 ```
 
-Q3 Answer: Any water quality parameters, such as tubidity or stream flow rate.
+Q3 Answer: Any water quality parameters, such as turbidity or stream flow rate. When applying to other organisms, want to be sure to select specific env parameters that are import and species to that species.
 
 
 
