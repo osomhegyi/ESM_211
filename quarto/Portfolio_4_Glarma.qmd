@@ -4,6 +4,8 @@ Portfolio: 4
 Topic: Glarma
 Date: January 30, 2024
 ---
+# Portfolio 4 - Glarma
+
 
 Glarma class notes:
 ## Glarma package
@@ -67,9 +69,9 @@ bison_null_lag7 <- glarma(y, x0, phiLags = c(7), type = "Poi", method = "FS",
 
 # 1. Visually compare the plots. Which looks like the best fit?
 #if you have an error in plot.window for the last plot, it's okay to ignore 
-plot.glarma(bison_null_lag1) # pretty good fit, some variability between time segments, but generally trending well with the data
-plot.glarma(bison_null_lag2) # pretty good fit, some variability between time segments, but best fit overall
-plot.glarma(bison_null_lag7) # good fit from time 15 - 20, otherwise not a very good fit 
+#plot.glarma(bison_null_lag1) # pretty good fit, some variability between time segments, but generally trending well with the data
+#plot.glarma(bison_null_lag2) # pretty good fit, some variability between time segments, but best fit overall
+#plot.glarma(bison_null_lag7) # good fit from time 15 - 20, otherwise not a very good fit 
 
 ## Answer: lag of 2 appears to visually be the best fit, although lag 1 have a similar trend with the data. A lot of visual similarities between lag 1 and 2, both generally follow the trend and have variability from data. Lag 7 is not a very good fit.
 
@@ -78,10 +80,11 @@ plot.glarma(bison_null_lag7) # good fit from time 15 - 20, otherwise not a very 
 summary(bison_null_lag1) # AIC: 7200.342; AIC difference > 7, not a good fit
 summary(bison_null_lag2) # AIC: 6684.275; best fit
 summary(bison_null_lag7) # AIC: 14214.01; worst fit
+```
+Answer: lag 2 is the best fitting model of the three options, becuase it has the lowest AIC.
 
-## Answer: lag 2 is the best fitting model of the three options, becuase it has the lowest AIC.
 
-
+```{r}
 # 3. Create a model with major events factored in and compare it with the best fit model identified in question 2. Is the model with major events a better fit? 
 
 #Add intercept and major events
@@ -100,10 +103,12 @@ bison_exp_lag <- glarma(y, x1, phiLags = c(1), type = "Poi", method = "FS",
                              residuals = "Pearson", maxit = 100, grad = 1e-6)
 #summary 
 summary(bison_exp_lag) # AIC: 5235.738; lowest of all the models so far
+```
+Answer: AIC is 5235.738; this model, with major events included in the model, is a better fit than the three previous models that were generated. This model has the lowest AIC of all the models. Meaning that accounting for major environmental events within these specific model, leads to a better model fit than not. When determining time lags, consider gestation rate, sexual maturity, and breeding frequency - these directly impact the lag and should be a major consideration when determining the lag time.
 
-## Answer: AIC is 5235.738; this model, with major events included in the model, is a better fit than the three previous models that were generated. This model has the lowest AIC of all the models. Meaning that accounting for major environmental events within these specific model, leads to a better model fit than not. When determining time lags, consider gestation rate, sexual maturity, and breeding frequency - these directly impact the lag and should be a major consideration when determining the lag time.
 
 
+```{r}
 #extra if you're feeling spry 
 #Plots the model (black) and the bison count data (gray)
 
