@@ -6,13 +6,15 @@ Date: February 6, 2024
 editor: 
   markdown: 
     wrap: 72
----
+--- 
 # Portfolio 6 - FSA
 
 FSA - Fisheries Stock Assessment Package
 
 What does it do? A variety of fish stock stuff. Incorporates many simple
-tasks - age comparisons - age-length relationships - size structures -
+tasks 
+
+- age comparisons - age-length relationships - size structures -
 weight-length relationships (WrAdd) - Abundance from capture-recapture -
 Depletion methods for estimating abundance - morality rates - growth
 rates - catch curve estimates of mortality(catch curve)
