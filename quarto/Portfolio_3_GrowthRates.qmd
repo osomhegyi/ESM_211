@@ -5,6 +5,8 @@ Topic: Growth Rates
 Date: January 30, 2024
 ---
 
+# Portfolio 3 - Growth Rates
+
 # Growth Rates notes from class:
 
 ## lecture notes
@@ -94,7 +96,7 @@ plot(fit_bison_linear) # the plot will note which points have highest growth rat
 
 # can also plot the log of results and compare between the two
 ```
-
+mumax = .1338
 
 # fit splines
 ```{r}
@@ -103,13 +105,12 @@ fit_bison_spline <- fit_spline(bison$time, bison$bison)
 
 # mumax is r
 coef(fit_bison_spline)
-# mumax = 0.5067
 
 # plot the fitted spline
 plot(fit_bison_spline)
 ## adds a spline connects each of the data points, first point at time 1970 is red; not a good fit.
 ```
-
+mumax = 0.5067
 
 # fit growth models
 ```{r}
@@ -129,9 +130,10 @@ coef(fit_bison_growth)
 # visualize
 plot(fit_bison_growth) # not the best fit
 ```
+K = 2267.286; Appears to be an underestimation of the model, since the data reaches up to 4000.
+r = 0.2
 
-
-## each model type gets quite different parameter values, becuase it is fitting the data differently. To get a better idea of which function is best suited for the data, always perform an initial visual inspection to get an idea if growth is linear, exponential, etc. Want to have a good understanding of your data before selecting which model is
+## Each model type gets quite different parameter values, becuase it is fitting the data differently. The results from fit_growthmodels (r = .2) and fit_easylinear (r = .1338) are relatively similar, but the results for fit_splines (r = 0.5067) is really quite different. To get a better idea of which function is best suited for the data, always perform an initial visual inspection to get an idea if growth is linear, exponential, etc. Want to have a good understanding of your data before selecting which model is the most appropraite.
 
 
 
